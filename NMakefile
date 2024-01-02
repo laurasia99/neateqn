@@ -1,0 +1,40 @@
+!IFNDEF _NMAKE_EQN_INCLUDED
+_NMAKE_EQN_INCLUDED=1
+
+!IFNDEF O
+O=obj
+!ENDIF
+!IFNDEF S
+S=.
+!ENDIF
+
+CC = cl
+CFLAGS = /nologo /O2 /D_CRT_SECURE_NO_WARNINGS
+LDFLAGS = /nologo
+OBJS = $O\eqn.obj $O\tok.obj $O\src.obj $O\def.obj $O\box.obj $O\reg.obj $O\sbuf.obj
+
+all:: eqn.exe
+eqn.exe: $(OBJS)
+	$(CC) /Fe:$@ $(OBJS) $(LDFLAGS)
+clean::
+	-del /Q $(OBJS) eqn.exe
+
+#
+$O:
+    if not exist $O mkdir $O
+$O/eqn.obj: $O $S/eqn.c
+	$(CC) /c /Fo:$@ $(CFLAGS) $S/$(@B).c
+$O/tok.obj: $S/tok.c
+	$(CC) /c /Fo:$@ $(CFLAGS) $S/$(@B).c
+$O/src.obj: $S/src.c
+	$(CC) /c /Fo:$@ $(CFLAGS) $S/$(@B).c
+$O/def.obj: $S/def.c
+	$(CC) /c /Fo:$@ $(CFLAGS) $S/$(@B).c
+$O/box.obj: $S/box.c
+	$(CC) /c /Fo:$@ $(CFLAGS) $S/$(@B).c
+$O/reg.obj: $S/reg.c
+	$(CC) /c /Fo:$@ $(CFLAGS) $S/$(@B).c
+$O/sbuf.obj: $S/sbuf.c
+	$(CC) /c /Fo:$@ $(CFLAGS) $S/$(@B).c
+
+!ENDIF
